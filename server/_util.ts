@@ -40,7 +40,13 @@ function getAverageTravelledWith(reviews) {
 function getReviewWeight(review) {
   // TODO: return the right calculations here instead of 1
   // according to the provided info in README.md file
-  return 1;
+  const reviewDate = new Date(review.entryDate);
+  const now = new Date(Date.now());
+  const yearsPassed = now.getFullYear() - reviewDate.getFullYear();
+
+  if (yearsPassed >= 5) return 0.5;
+
+  return 1 - yearsPassed * 0.1;
 }
 
 export default {
