@@ -160,20 +160,6 @@ function App() {
             <UserReviewComponent key={review.id} userReview={review} />
           ))}
       </div>
-
-      <h2>Check the end points on server:</h2>
-      <ul>
-        <li>
-          <a href="http://localhost:8080/reviews">
-            http://localhost:8080/reviews
-          </a>
-        </li>
-        <li>
-          <a href="http://localhost:8080/reviews/average">
-            http://localhost:8080/reviews/average
-          </a>
-        </li>
-      </ul>
     </div>
   );
 }
