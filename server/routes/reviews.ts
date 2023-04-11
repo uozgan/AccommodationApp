@@ -9,9 +9,14 @@ router.get("/", (req, res) => {
   const { start = 1, limit, filterBy, sortBy = "entryDate" } = req.query;
   const data = _.sortBy(reviews, sortBy).reverse(); // reverse to sort desc
   const filtered = data.filter((review) =>
-    filterBy ? review.traveledWith === filterBy : true
+    filterBy ? review.traveledWith.toLowerCase() === filterBy : true
   );
-  const paginated = filtered.slice(Number(start) - 1, limit);
+  const startValue = Number(start);
+  const limitValue = Number(limit);
+  const paginated = filtered.slice(
+    startValue > 1 ? (startValue - 1) * limitValue : startValue - 1,
+    limitValue * startValue
+  );
 
   res.json({ all: data, filtered: filtered, limited: paginated });
 });

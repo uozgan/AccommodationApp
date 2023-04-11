@@ -11,8 +11,10 @@ const router = express_1.default.Router();
 router.get("/", (req, res) => {
     const { start = 1, limit, filterBy, sortBy = "entryDate" } = req.query;
     const data = underscore_1.default.sortBy(reviews_json_1.default, sortBy).reverse(); // reverse to sort desc
-    const filtered = data.filter((review) => filterBy ? review.traveledWith === filterBy : true);
-    const paginated = filtered.slice(Number(start) - 1, limit);
+    const filtered = data.filter((review) => filterBy ? review.traveledWith.toLowerCase() === filterBy : true);
+    const startValue = Number(start);
+    const limitValue = Number(limit);
+    const paginated = filtered.slice(startValue > 1 ? (startValue - 1) * limitValue : startValue - 1, limitValue * startValue);
     res.json({ all: data, filtered: filtered, limited: paginated });
 });
 router.get("/average", (req, res) => {
